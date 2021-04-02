@@ -1,14 +1,14 @@
-form {
+.form {
     background-color: rgb(138, 138, 138);
- 
- width: 50%;
- height:50%;
+
+ width: 100%;
+ height:50%; 
  border-radius: 10%;
  border: 10px red;
  text-align: center;
  border-width: 10cm, 10cm;
 
-};
+}
 /* form.solid{
     border-style: solid;
     color:red;

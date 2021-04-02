@@ -6,10 +6,24 @@
 
 }
 
-.form1{
+.tt{
     border: 3px black;
     height: fit-content;
     border-style: solid;
     width: 100%;
 
 }
+.cttk{
+    background-color: aqua;
+    border: 3px black;
+    color:white;
+}
+nav{
+    background-color: aqua;
+    color:white;
+}
+label{
+    color:red;
+}
+
+
