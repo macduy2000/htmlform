@@ -20,112 +20,267 @@
             <li><a href="moment.html">MomentJS</a></li>
         </ul>
     </nav>
-    <article><pre><code>
-    <a href="https://viblo.asia/p/phan-biet-kieu-bien-var-let-va-const-trong-javascript-ORNZqaOnZ0n" style="color:aquamarine">Bài làm</a>
-    <p style="color:red">
-        1. Giới Thiệu
-        </p>
-<p>
-    ES6 (viết tắt của ECMAScript 6) là một tập hợp các kỹ thuật nâng cao của Javascript. 
-    ECMAScript do hiệp hội các nhà sản xuất máy tính Châu Âu đề xuất làm tiêu chuẩn của ngôn ngữ Javascript. 
-    Bạn cứ nghĩ xem hiện nay có khá nhiều trình duyệt Browser ra đời và nếu mỗi Browser lại có cách chạy Javascript khác nhau thì các trang web không thể hoạt động trên tất cả các trình duyệt đó được, 
-    vì vậy cần có một chuẩn chung để bắt buộc các browser phải phát triển dựa theo chuẩn đó.
-
-Một trong những tính năng nổi bật của ES6 đó là sự bổ sung let và const phục vụ cho việc khai báo biến dữ liệu. Vậy tại sao lại cần tới let và const dù trước đó đã có var để khai báo biến, thì ở bài viết này chúng ta sẽ cùng tìm hiểu lý do của từng kiểu khai báo biến.
-</p>
-</code></pre>
-</article>  
-    <p style="color:red">
-2. Phân Biệt</p>
-<br>
-2.1. Biến var</br>
-<br>
-Như đã biết trong Vanilla Javascript, với từ khóa var chúng ta có thể khai báo đa dạng các kiểu biến như number, string, boolean, etc. Trừ trường hợp được khai báo bên trong 1 function (khi đó biến var sẽ có scope là function/locally scoped), biến var sẽ có scope là globally scoped. Đặc biệt, biến var còn có thêm tính chất hoisting: nghĩa là dù khai báo ở đâu thì biến đều sẽ được đem lên đầu scope trước khi code được thực hiện.
-    </br>
-<br>
-Lấy ví dụ:
-</br>
-<article>
-    <pre><code>
-    console.log (greeting);</br>
-   <br> var greeting = "say hello";</br>
-<br>sẽ được biên dịch là:<br>
-
-   <br> var greeting;</br>
-    <br>console.log(greeting); // greeting is undefined</br>
-    <br>greeting = "say hello";<br>
-    </code></pre>
-</article>
-Nhưng có một vấn đề với biến var. Giả sử ta có ví dụ như sau:
-
-    var greeting = "hey hi";
-    var times = 4;
-
-    if (times > 3) {
-        var greeting = "say Hello instead"; 
-    }
-
-    console.log(greeting); //"say Hello instead"
-Vì thỏa điều kiện if nên greeting khi này sẽ có giá trị là "say Hello instead" và sẽ vẫn giữ nguyên giá trị này sau khi thoát ra khỏi block if. Điều này sẽ không có gây vấn đề gì nhưng nếu trong trường hợp code của chúng ta lên đến hàng trăm, hàng nghìn dòng code, hoặc chúng ta cũng không biết được giá trị của biến liệu có bị thay đổi ở đoạn code nào sẽ dẫn đến việc debug là vô cùng khó khăn. Để giải quyết vấn đề trên thì ES6 cung cấp cho chúng ta thêm 2 cách khác để khai báo biến bao gồm let và const.
-
-2.2. Biến let
-Một trong những nguyên nhân khiến let có thể thay thế var để xử lý vấn đề nêu trên là vì biến let được khai báo sẽ có scope là block scoped chứ không phải globally hay locally scoped.
-
-   let greeting = "say Hi";
-   let times = 4;
-
-   if (times > 3) {
-        let hello = "say Hello instead";
-        console.log(hello); // "say Hello instead"
-    }
-   console.log(hello); // hello is not defined
-Chúng ta có thế thấy là đối với biến có scope là block scoped nếu ra khỏi scope được khai báo thì sẽ không thể sử dụng được nữa.
-
-let cho phép chúng ta cập nhật giá trị của biến chứ không cho phép chúng ta tái khái báo lại biến đó.
-
-    let greeting = "say Hi";
-    console.log(greeting); //"say Hi"
-
-    greeting = "say Hello instead";
-    console.log(greeting); //"say Hello instead"
-
-    -----------------------------------------------------
-
-    let greeting = "say Hi";
-    let greeting = "say Hello instead"; // error: Identifier 'greeting' has already been declared
-Tuy nhiên, đối với các block khác nhau thì việc tái khai báo biến sẽ không sinh ra lỗi vì đối với từng scope, mỗi biến sẽ được xem xét là 1 biến riêng khác biệt.
-
-    let greeting = "say Hi";
-    if (true) {
-        let greeting = "say Hello instead";
-        console.log(greeting); // "say Hello instead"
-    }
-    console.log(greeting); // "say Hi"
-Giống với var, let cũng có tính hoisting tuy nhiên lại khác nhau ở chỗ thay vì var được khởi tạo với giá trị là undefined thì let sẽ không có bất kỳ giá trị khởi tạo nào. Điều này dẫn đến việc nếu chúng ta sử dụng biến let trước khi khai báo thì sẽ gặp lỗi Reference Error.
-</p>
-<p>
-
-2.3. Biến const
-Tương tự với let cũng có scope là block scoped, và hoisting thì chúng ta có thêm 1 kiểu khai báo biến nữa là const. Trong biến const nếu trường hợp kiểu của biến là primitive (bao gồm string, number, boolean, null, và undefined) thì chúng ta sẽ không thể tái khai báo hay cập nhật giá trị mới để thay thế cho giá trị trước đó của biến.
-
-    const greeting = "say Hi";
-    greeting = "say Hello instead"; // error : Assignment to constant variable. 
-
-    ------------------------------------------------
-
-    const greeting = "say Hi";
-    const greeting = "say Hello instead"; // error : Identifier 'greeting' has already been declared
-Đối với trường hợp kiểu biến là reference (bao gồm object, array, và function) thì tuy không thể tái khai báo hay cập nhật giá trị của biến nhưng chúng ta vẫn có thể cập nhật giá trị cho thuộc tính của biến đó.
-
-    const greeting = {
-        message : "Hello",
-        number : "five"
-    }
-
-    greeting.message = "say Hello instead";
-    console.log(greeting); // {message:"say Hello instead",number:"five"}
+    <p style="font-size: 30px;color:red;font-weight: bold;">
+    Moment.js
     </p>
-</article>
+<li>
+    Moment.js là một thư viện mạnh dùng để thao tác xử lý datetime trong javascript.</li>
+    <li>Moment.js được thiết kế hoạt động trong cả browser và Node.js</li>
+    <li>Có thể tải moment.js <a href="https://momentjs.com/" >tại đây</a>  Cài đặt moment.js</li>
+    <pre><code>
+   npm install moment --save   # npm
+    Install-Package Moment.js   # NuGet
+    spm install moment --save   # spm
+    meteor add momentjs:moment  # meteor
+    bower install moment --save # bower (deprecated)
+    </code></pre>
+     <p style="font-size: 30px;color:red;font-weight: bold">Parse</p>
+     <li>
+    Thay vì sửa đổi Date.prototype nguyên bản, Moment.js tạo một wrapper cho Date object. Để có được đối tượng wrapper này, chỉ cần gọi moment () với một trong các loại đầu vào được hỗ trợ.</li>
+    <li>
+    Moment.prototype được thể hiện qua moment.fn . Nếu bạn muốn thêm các chức năng của riêng bạn, đó là nơi bạn sẽ đặt chúng.</li>
+    <li>
+    Để dễ tham chiếu, bất kỳ phương pháp nào trên Moment.prototype sẽ được tham chiếu trong các tài liệu như moment#method. Nên Moment.prototype.format == moment.fn.format == moment#format.
+    </li>
+    <p style="font-size: 30px;color:red;font-weight: bold">Now</p>
+   
+    Cú pháp <d > moment()</d>; Để có được ngày và giờ hiện tại, chỉ cần gọi moment () mà không có tham số.<d >var now = moment();</d>
+    <p style="font-size: 30px;color:red;font-weight: bold">String</p>
+    
+    Cú pháp: <d>moment(String);</d> Ví dụ: <d>var day = moment("1995-12-25");</d>
+    <p style="font-size: 30px;color:red;font-weight: bold">String + Format</p>
+   
+    Định dạng moment theo chuẩn quy định Cú pháp:
+    <pre><code>
+    moment(String, String);
+    moment(String, String, String);
+    moment(String, String, Boolean);
+    moment(String, String, String, Boolean);
+    </code></pre>
+    Nếu bạn biết định dạng của một chuỗi đầu vào, bạn có thể sử dụng nó để phân tích một thời điểm.
+    <d>
+    moment("12-25-1995", "MM-DD-YYYY");</d>
+    <p style="font-size: 30px;color:red;font-weight: bold">String + Formats</p>
+    
+    Cú pháp: <d>moment(String, String[], String, Boolean);</d>
+    
+    Nếu bạn không biết định dạng chính xác của một chuỗi đầu vào, nhưng biết nó có thể là một trong nhiều, bạn có thể sử dụng một mảng các định dạng.
+    <br> Ví dụ: <d>moment("12-25-1995", ["MM-DD-YYYY", "YYYY-MM-DD"]);</d></br>
+    
+    <p style="font-size: 30px;color:red;font-weight: bold">Date</p>
+    Cú pháp:<d> moment(Date)</d>; Bạn có thể tạo Moment với đối tượng Javascript Date native sẵn có. Ví dụ:
+    <pre><code>
+    var day = new Date(2011, 9, 16);
+    var dayWrapper = moment(day);
+    </code></pre>
+
+    <p style="font-size: 30px;color:red;font-weight: bold">Array</p>
+    Cú pháp:<d> moment(Number[]);</d>
+    
+    Bạn có thể tạo ra một moment với một mảng các con số phản chiếu các tham số được truyền đến new Date() [year, month, day, hour, minute, second, millisecond] Ví dụ: moment([2010, 1, 14, 15, 25, 50, 125]); // February 14th, 3:25:50.125 PM
+    
+    <p style="font-size: 30px;color:red;font-weight: bold">UTC</p>
+    Cú pháp:
+    <pre><code>
+    moment.utc();
+    moment.utc(Number);
+    moment.utc(Number[]);
+    moment.utc(String);
+    moment.utc(String, String);
+    moment.utc(String, String[]);
+    moment.utc(String, String, String);
+    moment.utc(String, String, Boolean);
+    moment.utc(String, String, String, Boolean);
+    moment.utc(Moment);
+    moment.utc(Date);
+    </code></pre>
+    Theo mặc định, moment phân tích thời gian và hiển thị theo giờ của local. Nếu bạn muốn parse hay display moment theo UTC, bạn có thể sử dụng <d>moment.utc().</d>
+    <p style="font-size: 30px;color:red;font-weight: bold"> Get + Set</p>
+   
+    Moment.js sử dụng overload getters, setters. Bạn có thể quen thuộc với pattern này từ việc sử dụng nó trong jQuery.
+    
+    <p style="font-size: 30px;color:red;font-weight: bold">Millisecond</p>
+    Cú pháp:
+    <pre><code>
+     moment().millisecond(Number);
+     moment().millisecond(); // Number
+     moment().milliseconds(Number);
+     moment().milliseconds(); // Number
+     </code></pre>
+    Lấy hoặc thiết lập mili giây. Chấp nhận số từ 0 đến 999.
+
+    <p style="font-size: 30px;color:red;font-weight: bold">Second</p>
+    Cú pháp:
+    <pre><code>
+    moment().second(Number);
+    moment().second(); // Number
+    moment().seconds(Number);
+    moment().seconds(); // Number
+    </code></pre>
+    Lấy hoặc thiết lập giây. Chấp nhận số từ 0 đến 59.
+
+    <p style="font-size: 30px;color:red;font-weight: bold">Minute</p>
+    Cú pháp:
+    <pre><code>
+    moment().minute(Number);
+    moment().minute(); // Number
+    moment().minutes(Number);
+    moment().minutes(); // Number
+</code></pre>
+    Lấy hoặc thiết lập phút. Chấp nhận số từ 0 đến 59.
+<p style="font-size: 30px;color:red;font-weight: bold">Hour</p>
+    Cú pháp:
+    <pre><code>
+     moment().hour(Number);
+     moment().hour(); // Number
+     moment().hours(Number);
+     moment().hours(); // Number
+     </code></pre>
+    Lấy hoặc thiết lập giờ. Chấp nhận số từ 0 đến 23.
+
+    <p style="font-size: 30px;color:red;font-weight: bold">Date of Month</p>
+    Cú pháp:
+    <pre><code>
+    moment().date(Number);
+    moment().date(); // Number
+    moment().dates(Number);
+    moment().dates(); // Number
+    </code></pre>
+    Lấy hoặc thiết lập ngày của tháng. Chấp nhận số từ 0 đến 31.
+    <p style="font-size: 30px;color:red;font-weight: bold">
+    Month</p>
+    Cú pháp:
+    <pre><code>
+    moment().month(Number|String);
+    moment().month(); // Number
+    moment().months(Number|String);
+    moment().months(); // Number
+    </code></pre>
+    Lấy hoặc thiết lập tháng. Chấp nhận số từ 0 đến 11. Tháng không được lập chỉ mục, vì vậy January là tháng 0.
+    <p style="font-size: 30px;color:red;font-weight: bold">Year</p>
+    Cú pháp:
+    <pre><code>
+    moment().year(Number);
+    moment().year(); // Number
+    moment().years(Number);
+    moment().years(); // Number
+    </code></pre>
+    Lấy hoặc thiết lập năm. Chấp nhận số từ -270000 đến 270000.
+    <p style="font-size: 30px;color:red;font-weight: bold">
+    Get</p>
+    Cú pháp:
+    <pre><code>
+    moment().get('year');
+    moment().get('month');  // 0 to 11
+    moment().get('date');
+    moment().get('hour');
+    moment().get('minute');
+    moment().get('second');
+    moment().get('millisecond');
+    </code></pre>
+    <p style="font-size: 30px;color:red;font-weight: bold">Set</p>
+    
+    Cú pháp:
+    <d>
+    moment().set(String, Int);
+    moment().set(Object(String, Int));
+    </d>
+
+    Ví dụ:
+    <pre><code>
+    moment().set('year', 2013);
+    moment().set('month', 3);  // April
+    moment().set('date', 1);
+    moment().set('hour', 13);
+    moment().set('minute', 20);
+    moment().set('second', 30);
+    moment().set('millisecond', 123);
+    moment().set({'year': 2013, 'month': 3});
+    </code></pre>
+  
+    <p style="font-size: 30px;color:red;font-weight: bold">Manipulate</p>
+    <li>Một khi bạn đã có một moment, bạn có thể muốn thao tác nó. Có một số phương pháp để hỗ trợ thực thi</li>
+    <p style="font-size: 30px;color:red;font-weight: bold">Add</p>
+    Cú pháp:
+    <pre><code>
+      moment().add(Number, String);
+      moment().add(Duration);
+      moment().add(Object);
+      </code></pre>
+
+    Đây là một chức năng khá mạnh mẽ để thêm thời gian vào một moment. Để thêm thời gian hãy thêm giá trị cùng với keys phù hợp Ví dụ: <d>moment().add(7, 'days');</d>
+    <p style="font-size: 30px;color:red;font-weight: bold">Subtract</p>
+    Cú pháp:
+    <pre><code>
+    moment().subtract(Number, String);
+    moment().subtract(Duration);
+    moment().subtract(Object);
+    </code></pre>
+    Đây là chức năng cộng thêm 1 khoảng thời gian chỉ định cho moment Ví dụ:<d> moment().subtract(7, 'days');</d>
+    <p style="font-size: 30px;color:red;font-weight: bold">Start of Time</p>
+    Cú pháp: moment().startOf(String); Làm biến đổi moment bằng cách thiết lập nó vào đầu của một đơn vị thời gian. Ví dụ:
+    <pre><code>
+    moment().startOf('year');    // set to January 1st, 12:00 am this year
+    moment().startOf('month');   // set to the first of this month, 12:00 am
+    moment().startOf('quarter');  // set to the beginning of the current quarter, 1st day of months, 12:00 am
+    moment().startOf('week');    // set to the first day of this week, 12:00 am
+    moment().startOf('isoWeek'); // set to the first day of this week according to ISO 8601, 12:00 am
+    moment().startOf('day');     // set to 12:00 am today
+    moment().startOf('date');     // set to 12:00 am today
+    moment().startOf('hour');    // set to now, but with 0 mins, 0 secs, and 0 ms
+    moment().startOf('minute');  // set to now, but with 0 seconds and 0 milliseconds
+    moment().startOf('second');  // same as moment().milliseconds(0);
+    </code></pre>
+    <p style="font-size: 30px;color:red;font-weight: bold">End of Time</p>
+    Cú pháp: moment().endOf(String); Làm biến đổi moment bằng cách thiết lập nó vào cuối của một đơn vị thời gian. Ví dụ:<d> moment().endOf("year"); // set the moment to 12-31 23:59:59.999 this year</d>
+    
+    <p style="font-size: 30px;color:red;font-weight: bold">Display</p>
+    Sau khi phân tích cú pháp và thao tác được thực hiện, bạn cần một số cách để hiển thị thời điểm.
+    <p style="font-size: 30px;color:red;font-weight: bold">Format</p>
+    Cú pháp:
+    <pre><code>
+    moment().format();
+    moment().format(String);
+    </code></pre>
+    Ví dụ:
+    <pre><code>
+    moment().format();                                // "2014-09-08T08:02:17-05:00" (ISO 8601)
+    moment().format("dddd, MMMM Do YYYY, h:mm:ss a"); // "Sunday, February 14th 2010, 3:25:50 pm"
+    moment().format("ddd, hA");                       // "Sun, 3PM"
+    moment('gibberish').format('YYYY MM DD');         // "Invalid date"
+    </code></pre>
+    <p style="font-size: 30px;color:red;font-weight: bold">Difference</p>
+    Cú pháp:
+    <pre><code>
+    moment().diff(Moment|String|Number|Date|Array);
+    moment().diff(Moment|String|Number|Date|Array, String);
+    moment().diff(Moment|String|Number|Date|Array, String, Boolean);
+    </code></pre>
+    Để có được sự khác biệt trong mili giây, sử dụng moment#diff như bạn sẽ sử dụng moment#from. Ví dụ:
+    <pre><code>
+        var a = moment([2007, 0, 29]);
+    var b = moment([2007, 0, 28]);
+    a.diff(b) // 86400000</code></pre>
+    <p style="font-size: 30px;color:red;font-weight: bold">Days in Month</p>
+    Cú pháp:<d> moment().daysInMonth()</d>; Get số ngày trong tháng hiện tại. Ví dụ:
+   <pre><code> moment("2012-02", "YYYY-MM").daysInMonth() // 29
+    moment("2012-01", "YYYY-MM").daysInMonth() // 31
+</code></pre>
+<p style="font-size: 30px;color:red;font-weight: bold">As Javascript Date</p>
+
+    Cú pháp: <d>moment().toDate();</d> Để lấy một bản sao của đối tượng Date mà Moment.js wraps, hãy sử dụng moment # toDate.
+    <p style="font-size: 30px;color:red;font-weight: bold">As Array</p>
+    Cú pháp: <d>moment.toArray();</d> Điều này trả về một mảng số tham chiếu từ các tham số new Date(). Ví dụ: <d>moment().toArray(); // [2013, 1, 4, 14, 40, 16, 154];</d>
+    <p style="font-size: 30px;color:red;font-weight: bold">As String</p>
+    Cú pháp: <d>moment().toString();</d> Trả về một chuỗi tiếng Anh ở định dạng tương tự như .toString () của JS Date. Ví dụ:<d> moment().toString() // "Sat Apr 30 2016 16:59:46 GMT-0500"</d>
+    
+    <footer><a style="font-weight: bold;font-size: x-large ;">Tài liệu tham khảo</a>
+    <br><a href=" https://momentjs.com/docs/"> https://momentjs.com/docs/</a></br>
+    </footer>
+    
+    
+    <!-- <a href="https://viblo.asia/p/phan-biet-kieu-bien-var-let-va-const-trong-javascript-ORNZqaOnZ0n" style="color:aquamarine">Bài làm</a>
+   -->
     <!-- <article>
         <h4>Let và var ....</h4>
         <p>Let là gì</p>

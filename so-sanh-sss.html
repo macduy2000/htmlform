@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Blog of Ten</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='resource/main.css'>
+    <script src='resource/main.js'></script>
+</head>
+<body>
+    <header>
+        <h1>So sánh slice, substring, substr </h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Trang chủ</a></li>
+            <li><a href="so-sanh.html">So sánh khác nhau giữa let và var</a></li>
+            <li><a href="so-sanh-sss.html">So sánh slice, substring, substr</a></li>
+            <li><a href="moment.html">MomentJS</a></li>
+        </ul>
+    </nav>
+
+    <p>
+Hàm <code style="color:blue"><b>substr() </b></code> và <code style="color:blue"><b> substring(), slice()</b></code> đều là hàm cắt chuỗi trong Javascript. Nhưng mỗi hàm lại có công dụng và hành vi riêng của nó, những bạn mới tìm hiểu <b>Javascript</b> dễ hiểu lầm 2 hàm <code style="color:blue"><b>substr() </b></code>và <code style="color:blue"><b>substring() </b></code> giống nhau. Dưới đây là công dụng và cách sử dụng từng hàm.
+    </p>
+<p style="color:red ;font-style:italic;font-size:20px;"><b>
+1. Hàm substr():</b>
+</p>
+<p>
+Cấu trúc: string.substr(start[, length]);
+  <br>- start: là vị trí bắt đầu</br>
+  <br>- length: là độ dài chuỗi con cần lấy tính từ vị trí bắt đầu</br>
+</p>
+
+<a style="color:blue;font-style:unset" >VD1:</a>
+<pre><code>
+var str="abcdefghijklmnopq";
+document.write(str.substr(0,3)); //Từ đầu chuỗi lấy thêm 3 ký tự. Kết quả: "abc"
+document.write(str.substr(3,5)); //Từ vị trí thứ 3 lấy thêm 5 ký tự. 
+</code></pre>
+
+<c style="color:green;font-style: oblique;"><b>Kết quả: "defgh"</b></c>
+
+<br>Nếu vị trí bắt đầu là số âm, hàm sẽ đếm ngược từ cuối chuỗi.</br>
+<a style="color:blue;font-style:unset" >VD2:</a>
+<pre><code>
+var str="abcdefghijklmnopq";
+document.write(str.substr(-10,4)); //từ vị trí thứ 10 tính từ cuối chuỗi lấy thêm 4 ký tự. 
+</code></pre>
+
+<c style="color:green;font-style: oblique;"><b>Kết quả: "hijk"</b></c>
+
+<br>-Nếu độ dài (length) bằng 0 sẽ trả về 1 sâu rỗng.</br>
+<br>-Nếu độ dài là giá trị âm ( < 0) sẽ được tính như là 0.</br>
+<br>-Nếu khuyết độ dài (length) hàm sẽ trả về chuỗi con được tính từ vị trí bắt đầu đến cuối chuỗi.</br>
+
+<a style="color:blue;font-style:unset">VD3:</a>
+<pre><code>
+var str="abcdefghijklmnopq";
+document.write(str.substr(3)); //Tính từ vị trí thứ 3 đến cuối chuỗi. Kết quả: "defghijklmnopq"
+document.write(str.substr(-5)); //Tính từ vị trí thứ 5 (đếm từ cuối chuỗi) đến cuối chuỗi.
+</code></pre>
+<c style="color:green;font-style: oblique;"><b>Kết quả: "mnopq"</b></c>
+
+<p style="color:red ;font-style:italic;font-size:20px;"><b>
+2. Hàm substring():</b></p>
+<p>
+Cấu trúc: string.substring(start[, stop]);
+ <br>- start: vị trí bắt đầu</br>
+ <br>- stop: vị trí kết thúc </br>
+</p>
+<a style="color:blue;font-style:unset">VD4:</a>
+<pre><code>
+var str="abcdefghijklmnopq";
+document.write(str.substring(0,3)); //Lấy từ đầu chuỗi đến vị trí tứ 3. Kết quả: "abc"
+document.write(str.substring(3,8)); //Lấy từ vị trí thứ 3 đến vị trí thứ 8. 
+</code></pre>
+<c style="color:green;font-style: oblique;"><b>Kết quả: "defgh"</b></c>
+
+<br>-Nếu start bằng stop nó sẽ trả về chuỗi rỗng.</br>
+<br>-Nếu 1 trong 2 giá trị (start, stop) âm (nhỏ hơn 0) nó sẽ được xử lý như là 0</br>
+<br>-Nếu start > stop nó sẽ đổi vị trí 2 đối số.</br>
+<br>-Nếu 1 trong 2 giá trị (start, stop) lớn hơn chiều dài của chuỗi sẽ được xử lý bằng độ dài của chuỗi. (Nó cũng giống như bị khuyết giá trị đó</br>
+<br>-Nếu bỏ qua stop (khuyết stop) sẽ lấy từ vị trí bắt đầu đến cuối chuỗi. (điều này giống với hàm substr())</br>
+<p style="color:red ;font-style:italic;font-size:20px;"><b>
+3. Hàm slice():</b>hoạt động như substring() nhưng có một số hành vi khác nhau </p>
+<p>
+
+<br>Cấu trúc: string.slice(start[, stop]);</br>
+ <br>- Nếu giá trị kết thúc (stop) được bỏ qua cũng như hàm substring() sẽ tính từ vị trí bắt đầu đến cuối chuỗi.</br>
+ <br>- Nếu start > stop, slice() sẽ không trao đổi 2 đối số. (Được con là điều kiện sai, trả về chuỗi rỗng)</br>
+ <br>- Nếu start là số âm (< 0), slice() sẽ thiết vị trí đếm từ cuối chuỗi, giống như substr().</br>
+ <br> Trong trường hợp đếm từ cuối chuỗi nhưng vị trí bắt đầu vẫn vượt vị trí kết thúc trong chuỗi nó sẽ giống như trường hợp start > stop.</br>
+ VD:
+</p>
+<pre><code>
+ var str="abcdefghijklmnopq";
+document.write(str.slice(-10,8)); Tính từ vị trí thứ 10 đếm ngược từ cuối chuỗi đến vị trí thứ 8 đếm từ đầu chuỗi.
+</code></pre>
+<c style="color:green;font-style: oblique;"><b>Kết quả: "h"</b></c>
+
+<br>
+ - Nếu stop là âm, thì vị trí kết thúc cũng sẽ được tính từ cuối chuỗi đếm ngược lại.</br>
+ <pre><code>
+var str="abcdefghijklmnopq";
+document.write(str.slice(-10,-7)); Tính từ vị trí thứ 10 đếm ngược từ cuối chuỗi đến vị trí thứ 8 đếm ngược từ cuối chuỗi.
+</code></pre>
+ <c style="color:green;font-style: oblique;"><b>Kết quả: "hij"</b></c>
+ <br>
+*Chú ý khi sử dụng slice() bạn có thể cho giá trị dương hoặc âm (tức là đếm từ đầu hoặc cuối chuỗi) nhưng vị trí bắt đầu không được vượt quá vị trí kết thúc, nếu không sẽ được coi là sai.
+</br>
+
+<footer style="font-style: italic;">
+Các bạn hãy thử thay đổi giá trị của 2 đối số trong các hàm để hiểu rõ hơn về cách hoạt động của nó.</footer>
+</body>
+</html>
